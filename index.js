@@ -38,7 +38,7 @@ app.post('/api/shorturl', (req, res) => {
 
   dns.lookup(hostname, (err, address, family) => {
     if (err) {
-      console.error('Domain lookup failed:', err);
+      // console.error('Domain lookup failed:', err);
       res.json({ "error": "invalid url" })
     } else {
       // console.log('Domain is verified. IP address:', address);
