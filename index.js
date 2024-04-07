@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const dns = require("dns");
+const Url = require('url');
+
 const bodyParser = require("body-parser");
 const fs = require("fs");
 
@@ -26,12 +28,21 @@ app.get('/api/hello', function (req, res) {
 app.post('/api/shorturl', (req, res) => {
   const { url } = req.body;
 
-  dns.lookup(url, (err, address, family) => {
+  const parsedUrl = Url.parse(url);
+  let hostname = parsedUrl.hostname;
+
+  // Remove 'www.' if present
+  if (hostname.startsWith('www.')) {
+    hostname = hostname.slice(4);
+  }
+
+  dns.lookup(hostname, (err, address, family) => {
     if (err) {
       console.error('Domain lookup failed:', err);
       res.json({ "error": "Invalid URL" })
     } else {
       console.log('Domain is verified. IP address:', address);
+      console.log("Family", family);
 
       let data = fs.readFileSync("./mappings.json");
       data = JSON.parse(data);
