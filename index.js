@@ -29,7 +29,12 @@ app.post('/api/shorturl', (req, res) => {
   const { url } = req.body;
 
   const parsedUrl = Url.parse(url);
+  console.log(parsedUrl);
   let hostname = parsedUrl.hostname;
+
+  if (hostname == null) {
+    res.json({ "error": "invalid url" });
+  }
 
   // Remove 'www.' if present
   if (hostname.startsWith('www.')) {
