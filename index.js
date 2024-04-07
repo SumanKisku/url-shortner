@@ -76,7 +76,7 @@ app.get("/api/shorturl/:number", (req, res) => {
 
   for (let map of mapping) {
     if (map.short_url === +number) {
-      res.redirect(`https://${map.original_url}`);
+      res.redirect(`${map.original_url}`);
       return;
     }
   }
