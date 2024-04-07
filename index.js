@@ -29,7 +29,7 @@ app.post('/api/shorturl', (req, res) => {
   dns.lookup(url, (err, address, family) => {
     if (err) {
       console.error('Domain lookup failed:', err);
-      res.send("Enter a valid domain with format - www.facebook.com")
+      res.json({ "error": "Invalid URL" })
     } else {
       console.log('Domain is verified. IP address:', address);
 
