@@ -39,10 +39,10 @@ app.post('/api/shorturl', (req, res) => {
   dns.lookup(hostname, (err, address, family) => {
     if (err) {
       console.error('Domain lookup failed:', err);
-      res.json({ "error": "Invalid URL" })
+      res.json({ "error": "invalid URL" })
     } else {
-      console.log('Domain is verified. IP address:', address);
-      console.log("Family", family);
+      // console.log('Domain is verified. IP address:', address);
+      // console.log("Family", family);
 
       let data = fs.readFileSync("./mappings.json");
       data = JSON.parse(data);
